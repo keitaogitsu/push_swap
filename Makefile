@@ -1,9 +1,8 @@
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 NAME	= push_swap
-AR		= ar r
 RM		= rm -f
-SRCS	= push_swap.c
+SRCS	= push_swap.c list_util.c free_content.c swap.c rotate.c push.c
 OBJS	= $(SRCS:.c=.o)
 LIBNAME	= push_swap.h
 MAKE = make
