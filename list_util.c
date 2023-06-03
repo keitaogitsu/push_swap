@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 10:43:13 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/05/30 15:26:14 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/03 20:06:19 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	create_stack(t_stack *stack)
 		return ;
 	dummy->next = dummy;
 	dummy->prev = dummy;
+	dummy->index = -1;
 	stack->sentry = dummy;
 }
 

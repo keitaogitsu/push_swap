@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/05/31 09:10:50 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/03 19:12:31 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 	count_b = stack_size(stack_b);
 	current_a = stack_a->sentry->prev;
 	current_b = stack_b->sentry->prev;
-
 	if (count_a >= count_b)
 	{
 		while (count_a)
@@ -76,8 +75,11 @@ int	check_num(char *str)
 	strlen = ft_strlen(str);
 	while (i < strlen)
 	{
-		if (!ft_isdigit(str[i]))
-			return (1);
+		if (str[0] != '+' && str[0] != '-')
+		{
+			if (!ft_isdigit(str[i]))
+				return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -111,9 +113,7 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	c_compression(&stack_a);
-	print_stack(&stack_a, &stack_b);
 	if (stack_size(&stack_a) <= 6)
 		sort_small_stack(&stack_a, &stack_b);
-	print_stack(&stack_a, &stack_b);
 	return (0);
 }

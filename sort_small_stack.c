@@ -6,60 +6,52 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:34:24 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/03 15:36:24 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/03 20:14:38 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_two_elem(t_stack *stack)
+int	judge_rotate_or_rrotate(t_stack *stack, int min, int max)
 {
-	if (stack->sentry->next->index < stack->sentry->prev->index)
-		do_sa(stack);
-}
+	int		count1;
+	int		count2;
+	t_node	*tmp_node;
 
-void	sort_three_elem(t_stack *stack_a)
-{
-	t_node	*top;
-	t_node	*bottom;
-	
-	top = stack_a->sentry->prev;
-	bottom = stack_a->sentry->next;
-	if ((bottom->index > top->index) && (top->index > top->prev->index))
-		do_sa(stack_a);
-	else if ((top->index > top->prev->index) && (top->prev->index > bottom->index))
+	count1 = 0;
+	tmp_node = stack->sentry->prev;
+	while (tmp_node->next != stack->sentry)
 	{
-		do_sa(stack_a);
-		do_rra(stack_a);
+		if (tmp_node->index >= min && tmp_node->index <= max)
+			break ;
+		count1++;
+		tmp_node = tmp_node->next;
 	}
-	else if ((top->index > bottom->index) && (bottom->index > top->prev->index))
-		do_ra(stack_a);
-	else if ((top->prev->index > bottom->index) && (bottom->index > top->index))
+	tmp_node = stack->sentry->prev;
+	count2 = 0;
+	while (tmp_node->prev != stack->sentry)
 	{
-		do_sa(stack_a);
-		do_ra(stack_a);
+		if (tmp_node->index >= min && tmp_node->index <= max)
+			break ;
+		count2++;
+		tmp_node = tmp_node->prev;
 	}
-	else if ((top->prev->index > top->index) && (top->index > bottom->index))
-		do_rra(stack_a);
+	if (count1 < count2)
+		return (1);
 	else
-		return ;
+		return (0);
 }
-
-// void	sort_over_four_elem(t_stack *stack_a, t_stack *stack_b)
-// {
-	
-// }
 
 void	sort_small_stack(t_stack *stack_a, t_stack *stack_b)
 {
-	if (stack_size(stack_b) == 0)
-		stack_b = NULL;
-	else if (stack_size(stack_a) == 1)
+	if (stack_size(stack_a) == 1)
 		return ;
 	else if (stack_size(stack_a) == 2)
 		sort_two_elem(stack_a);
 	else if (stack_size(stack_a) == 3)
-		sort_three_elem(stack_a);
-	// else if (stack_size(stack_a) >= 4 && stack_size(stack_a) <= 6)
-	// 	sort_over_four_elem(stack_a, stack_b);
+		sort_three_elem_a(stack_a);
+	else if (stack_size(stack_a) >= 4 && stack_size(stack_a) <= 6)
+		sort_over_four_elem(stack_a, stack_b);
+	else
+		return ;
 }
