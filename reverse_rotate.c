@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/28 18:52:53 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/05/29 15:18:37 by kogitsu          ###   ########.fr       */
+/*   Created: 2023/05/29 15:12:21 by kogitsu           #+#    #+#             */
+/*   Updated: 2023/05/29 15:19:28 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rotate(t_stack *stack)
+void	r_rotate(t_stack *stack)
 {
 	t_node	*tmp_node;
 
-	tmp_node = stack->sentry->prev;
-	stack->sentry->prev->prev->next = stack->sentry;
-	stack->sentry->prev = stack->sentry->prev->prev;
-	if (add_node_next_sentry(stack, tmp_node))
+	tmp_node = stack->sentry->next;
+	stack->sentry->next->next->prev = stack->sentry;
+	stack->sentry->next = stack->sentry->next->next;
+	if (add_node_prev_sentry(stack, tmp_node))
 		return ;
 }
 
-void	do_ra(t_stack *stack_a)
+void	do_rra(t_stack *stack_a)
 {
-	rotate(stack_a);
-	ft_printf("ra\n");
+	r_rotate(stack_a);
+	ft_printf("rra\n");
 }
 
-void	do_rb(t_stack *stack_b)
+void	do_rrb(t_stack *stack_b)
 {
-	rotate(stack_b);
-	ft_printf("rb\n");
+	r_rotate(stack_b);
+	ft_printf("rrb\n");
 }
 
-void	do_rr(t_stack *stack_a, t_stack *stack_b)
+void	do_rrr(t_stack *stack_a, t_stack *stack_b)
 {
-	rotate(stack_a);
-	rotate(stack_b);
-	ft_printf("rr\n");
+	r_rotate(stack_a);
+	r_rotate(stack_b);
+	ft_printf("rrr\n");
 }

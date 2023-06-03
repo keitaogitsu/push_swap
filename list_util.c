@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 10:43:13 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/05/28 21:03:53 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/05/30 15:26:14 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ t_node	*create_node(int val)
 		return (NULL);
 	node->prev = NULL;
 	node->next = NULL;
+	node->index = 0;
+	node->cc_flag = 0;
 	node->value = val;
-	// node->index = 0:
 	return (node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/05/28 21:19:42 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/05/31 09:10:50 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,46 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 	count_b = stack_size(stack_b);
 	current_a = stack_a->sentry->prev;
 	current_b = stack_b->sentry->prev;
+
 	if (count_a >= count_b)
 	{
-		while (count_a--)
+		while (count_a)
 		{
-			ft_printf("%d | %d", current_a->value, current_b->value);
-			current_a = current_a->prev;
-			current_b = current_b->prev;
-			ft_printf("\n");
+			if (count_a > count_b)
+			{
+				ft_printf("%d[%d] |   \n", current_a->value, current_a->index);
+				current_a = current_a->prev;
+				count_a--;
+			}
+			else
+			{
+				ft_printf("%d[%d] | %d[%d]\n", current_a->value,current_a->index,current_b->value,current_b->index);
+				current_a = current_a->prev;
+				current_b = current_b->prev;
+				count_a--;
+			}
 		}
-		ft_printf("-----\na   b\n");
+		ft_printf("----------\n a   | b\n");
 	}
 	else
 	{
-		while (count_b--)
+		while (count_b)
 		{
-			ft_printf("%d | %d", current_a->value, current_b->value);
-			current_a = current_a->prev;
-			current_b = current_b->prev;
-			ft_printf("\n");
+			if (count_b > count_a)
+			{
+				ft_printf("     | %d[%d]\n", current_b->value,current_b->index);
+				current_b = current_b->prev;
+				count_b--;
+			}
+			else
+			{
+				ft_printf("%d[%d] | %d[%d]\n", current_a->value,current_a->index,current_b->value,current_b->index);
+				current_a = current_a->prev;
+				current_b = current_b->prev;
+				count_b--;
+			}
 		}
-		ft_printf("-----\na | b\n");
+		ft_printf("----------\n a   | b\n");
 	}
 	ft_printf("\n");
 }
@@ -91,14 +110,10 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
+	c_compression(&stack_a);
 	print_stack(&stack_a, &stack_b);
-	push(&stack_b, &stack_a);
-	print_stack(&stack_a, &stack_b);
-	double_swap(&stack_a, &stack_b);
-	print_stack(&stack_a, &stack_b);
-	rotate(&stack_a);
-	print_stack(&stack_a, &stack_b);
-	r_rotate(&stack_a);
+	if (stack_size(&stack_a) <= 6)
+		sort_small_stack(&stack_a, &stack_b);
 	print_stack(&stack_a, &stack_b);
 	return (0);
 }
