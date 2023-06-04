@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:10:49 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/03 20:14:32 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/04 13:43:44 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,8 @@ void	sort_over_four_elem(t_stack *stack_a, t_stack *stack_b)
 		if (top_a->index < (start_a_size - 3))
 			do_pb(stack_a, stack_b);
 		else
-		{
-			// if (judge_rotate_or_rrotate(stack_a, 0, 2))
-			// 	do_ra(stack_a);
-			// else
 			do_ra(stack_a);
-		}
 	}
 	sort_three_elem_a(stack_a);
 	sort_b_and_push_a(stack_a, stack_b);
 }
-
-//  4 3 1 0 5 2
-//  
