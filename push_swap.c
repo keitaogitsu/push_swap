@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/04 15:12:33 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/04 17:28:24 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	check_num(char *str)
 {
 	int	i;
 	int	strlen;
+	int num;
 
 	i = 0;
 	strlen = ft_strlen(str);
@@ -86,6 +87,10 @@ int	check_num(char *str)
 		{
 			if (!ft_isdigit(str[i]))
 				return (1);
+		}
+		if (ft_digit(str[i]))
+		{
+			num = ft_flow_check()
 		}
 		i++;
 	}
