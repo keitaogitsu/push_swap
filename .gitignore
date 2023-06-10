@@ -1,0 +1,7 @@
+/push_swap_tester/
+/push-swap-pain/
+pain.sh
+checker
+*.o
+*.a
+push_swap
