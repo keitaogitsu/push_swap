@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/04 17:28:24 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/09 22:47:26 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,34 +73,23 @@ static void destructor() {
     system("leaks -q push_swap");
 }
 
-int	check_num(char *str)
+static void	free_stack(t_stack *stack_a, t_stack *stack_b)
 {
-	int	i;
-	int	strlen;
-	int num;
+	free_content(stack_a);
+	free_content(stack_b);
+}
 
-	i = 0;
-	strlen = ft_strlen(str);
-	while (i < strlen)
-	{
-		if (str[0] != '+' && str[0] != '-')
-		{
-			if (!ft_isdigit(str[i]))
-				return (1);
-		}
-		if (ft_digit(str[i]))
-		{
-			num = ft_flow_check()
-		}
-		i++;
-	}
-	return (0);
+static void	sort_stack(t_stack *stack_a, t_stack *stack_b)
+{
+	if (stack_size(stack_a) <= 6)
+		sort_small_stack(stack_a, stack_b);
+	else
+		sort_big_stack(stack_a, stack_b);
 }
 
 int	main(int argc, char *argv[])
 {
 	int		i;
-	int		tmp;
 	t_stack	stack_a;
 	t_stack	stack_b;
 
@@ -111,27 +100,19 @@ int	main(int argc, char *argv[])
 	create_stack(&stack_b);
 	while (i < argc)
 	{
-		if (check_num(argv[i]))
+		if (check_arg(argv[i]))
 		{
 			ft_printf("Error\n");
-			free_content(&stack_a);
-			free_content(&stack_b);
+			free_stack(&stack_a, &stack_b);
 			return (0);
 		}
 		else
-		{
-			tmp = ft_atoi(argv[i]);
-			if (add_node_next_sentry(&stack_a, create_node(tmp)))
-				free_content(&stack_a);
-		}
+			if (add_node_next_sentry(&stack_a, create_node(ft_atoi(argv[i]))))
+				free_stack(&stack_a, &stack_b);
 		i++;
 	}
 	c_compression(&stack_a);
-	if (stack_size(&stack_a) <= 6)
-		sort_small_stack(&stack_a, &stack_b);
-	else
-		sort_big_stack(&stack_a, &stack_b);
-	free_content(&stack_a);
-	free_content(&stack_b);
+	sort_stack(&stack_a, &stack_b);
+	free_stack(&stack_a, &stack_b);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 07:37:33 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/04 15:03:40 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/09 22:46:04 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	sort_over_four_elem(t_stack *stack_a, t_stack *stack_b);
 int		judge_rotate_or_rrotate(t_stack *stack, int min, int max);
 void	sort_big_stack(t_stack *stack_a, t_stack *stack_b);
 void	do_ra_or_pb(int i, t_stack *stack_a, t_stack *stack_b);
+int		check_arg(char *str);
 
 #endif
