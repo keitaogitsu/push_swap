@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:38:27 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/05/30 15:36:33 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/10 11:16:11 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	c_compression(t_stack *stack)
 {
-	t_node *current_1;
-	t_node *current_2;
-	t_node *min;
+	t_node	*current_1;
+	t_node	*current_2;
+	t_node	*min;
 	int		i;
 
 	i = 0;
-	current_1= stack->sentry->next;
+	current_1 = stack->sentry->next;
 	while (i < stack_size(stack))
 	{
 		min = current_1;

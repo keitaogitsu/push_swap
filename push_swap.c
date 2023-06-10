@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/09 22:47:26 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/10 17:06:01 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 // 			}
 // 			else
 // 			{
-// 				ft_printf("%d[%d] | %d[%d]\n", current_a->value,current_a->index,current_b->value,current_b->index);
+// 				ft_printf("%d[%d] | %d[%d]\n", current_a->value, 
+// 				current_a->index,current_b->value,current_b->index);
 // 				current_a = current_a->prev;
 // 				current_b = current_b->prev;
 // 				count_a--;
@@ -55,7 +56,8 @@
 // 			}
 // 			else
 // 			{
-// 				ft_printf("%d[%d] | %d[%d]\n", current_a->value,current_a->index,current_b->value,current_b->index);
+// 				ft_printf("%d[%d] | %d[%d]\n", current_a->value, 
+// 				current_a->index,current_b->value,current_b->index);
 // 				current_a = current_a->prev;
 // 				current_b = current_b->prev;
 // 				count_b--;
@@ -66,12 +68,12 @@
 // 	ft_printf("\n");
 // }
 
-#include <libc.h>
+// #include <libc.h>
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q push_swap");
-}
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q push_swap");
+// }
 
 static void	free_stack(t_stack *stack_a, t_stack *stack_b)
 {
@@ -87,6 +89,22 @@ static void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 		sort_big_stack(stack_a, stack_b);
 }
 
+static int	check_add(char *arg, t_stack *stack_a, t_stack *stack_b)
+{
+	if (check_arg(arg))
+	{
+		ft_printf("Error\n");
+		free_stack(stack_a, stack_b);
+		return (1);
+	}
+	else
+	{
+		if (add_node_next_sentry(stack_a, create_node(ft_atoi(arg))))
+			free_stack(stack_a, stack_b);
+		return (0);
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	int		i;
@@ -100,19 +118,18 @@ int	main(int argc, char *argv[])
 	create_stack(&stack_b);
 	while (i < argc)
 	{
-		if (check_arg(argv[i]))
-		{
-			ft_printf("Error\n");
-			free_stack(&stack_a, &stack_b);
+		if (check_add(argv[i++], &stack_a, &stack_b))
 			return (0);
-		}
-		else
-			if (add_node_next_sentry(&stack_a, create_node(ft_atoi(argv[i]))))
-				free_stack(&stack_a, &stack_b);
-		i++;
+	}
+	if (check_duplicate(&stack_a))
+	{
+		ft_printf("Error\n");
+		free_stack(&stack_a, &stack_b);
+		return (0);
 	}
 	c_compression(&stack_a);
-	sort_stack(&stack_a, &stack_b);
+	if (!is_sorted(&stack_a))
+		sort_stack(&stack_a, &stack_b);
 	free_stack(&stack_a, &stack_b);
 	return (0);
 }
