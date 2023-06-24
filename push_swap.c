@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/10 17:06:01 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:30:26 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,20 @@
 // 	ft_printf("\n");
 // }
 
-// #include <libc.h>
+#include <libc.h>
 
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q push_swap");
-// }
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q push_swap");
+}
 
-static void	free_stack(t_stack *stack_a, t_stack *stack_b)
+void	free_stack(t_stack *stack_a, t_stack *stack_b)
 {
 	free_content(stack_a);
 	free_content(stack_b);
 }
 
-static void	sort_stack(t_stack *stack_a, t_stack *stack_b)
+void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 {
 	if (stack_size(stack_a) <= 6)
 		sort_small_stack(stack_a, stack_b);
@@ -89,7 +89,7 @@ static void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 		sort_big_stack(stack_a, stack_b);
 }
 
-static int	check_add(char *arg, t_stack *stack_a, t_stack *stack_b)
+int	check_add(char *arg, t_stack *stack_a, t_stack *stack_b)
 {
 	if (check_arg(arg))
 	{
@@ -105,22 +105,48 @@ static int	check_add(char *arg, t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
+int	arg_check_add(int argc, char **argv, t_stack *stack_a, t_stack *stack_b)
+{
+	char	**container;
+	int		i;
+	int		j;
+	
+	i = 0;
+	j = 1;
+	container = NULL;
+	if (argc == 2)
+	{
+		container = ft_split(argv[1], ' ');
+		while (container[i] != NULL)
+		{
+			if (check_add(container[i++], stack_a, stack_b))
+			{
+				free_container_content(container);
+				return (1);
+			}
+		}
+		free_container_content(container);
+	}
+	else
+	{
+		while (j < argc)
+			if (check_add(argv[j++], stack_a, stack_b))
+				return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
-	int		i;
 	t_stack	stack_a;
 	t_stack	stack_b;
 
 	if (argc < 2)
 		return (0);
-	i = 1;
 	create_stack(&stack_a);
 	create_stack(&stack_b);
-	while (i < argc)
-	{
-		if (check_add(argv[i++], &stack_a, &stack_b))
-			return (0);
-	}
+	if (arg_check_add(argc, argv, &stack_a, &stack_b))
+		return (0);
 	if (check_duplicate(&stack_a))
 	{
 		ft_printf("Error\n");

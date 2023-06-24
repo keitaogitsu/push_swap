@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 07:37:33 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/10 16:50:46 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:28:12 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void	do_ra_or_pb(int i, t_stack *stack_a, t_stack *stack_b);
 int		check_arg(char *str);
 int		check_duplicate(t_stack *stack);
 int		is_sorted(t_stack *stack);
+void	free_container_content(char **container);
 
 #endif
