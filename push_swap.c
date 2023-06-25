@@ -6,7 +6,7 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/20 23:30:26 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/06/25 11:33:18 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@
 // 	ft_printf("\n");
 // }
 
-#include <libc.h>
+// #include <libc.h>
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q push_swap");
-}
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q push_swap");
+// }
 
 void	free_stack(t_stack *stack_a, t_stack *stack_b)
 {
@@ -109,10 +109,8 @@ int	arg_check_add(int argc, char **argv, t_stack *stack_a, t_stack *stack_b)
 {
 	char	**container;
 	int		i;
-	int		j;
-	
+
 	i = 0;
-	j = 1;
 	container = NULL;
 	if (argc == 2)
 	{
@@ -129,8 +127,8 @@ int	arg_check_add(int argc, char **argv, t_stack *stack_a, t_stack *stack_b)
 	}
 	else
 	{
-		while (j < argc)
-			if (check_add(argv[j++], stack_a, stack_b))
+		while (++i < argc)
+			if (check_add(argv[i], stack_a, stack_b))
 				return (1);
 	}
 	return (0);
