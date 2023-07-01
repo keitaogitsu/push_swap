@@ -6,11 +6,14 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 10:43:13 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/03 20:06:19 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/07/01 14:21:46 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+	// node = (t_node *)my_malloc(sizeof(t_node));
+	// dummy = (t_node *)my_malloc(sizeof(t_node));
 
 t_node	*create_node(int val)
 {
@@ -18,7 +21,7 @@ t_node	*create_node(int val)
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
-		return (NULL);
+		exit(1);
 	node->prev = NULL;
 	node->next = NULL;
 	node->index = 0;
@@ -33,7 +36,7 @@ void	create_stack(t_stack *stack)
 
 	dummy = (t_node *)malloc(sizeof(t_node));
 	if (dummy == NULL)
-		return ;
+		exit(1);
 	dummy->next = dummy;
 	dummy->prev = dummy;
 	dummy->index = -1;
@@ -43,7 +46,7 @@ void	create_stack(t_stack *stack)
 int	add_node_next_sentry(t_stack *stack, t_node *new_node)
 {
 	if (new_node == NULL)
-		return (1);
+		exit(1);
 	new_node->next = stack->sentry->next;
 	new_node->prev = stack->sentry;
 	new_node->next->prev = new_node;
@@ -54,7 +57,7 @@ int	add_node_next_sentry(t_stack *stack, t_node *new_node)
 int	add_node_prev_sentry(t_stack *stack, t_node *new_node)
 {
 	if (new_node == NULL)
-		return (1);
+		exit(1);
 	new_node->prev = stack->sentry->prev;
 	new_node->next = stack->sentry;
 	new_node->prev->next = new_node;
@@ -68,7 +71,7 @@ int	stack_size(t_stack *stack)
 	t_node	*tmp_node;
 
 	if (stack == NULL)
-		return (0);
+		exit(1);
 	if (stack->sentry->next == stack->sentry && \
 		stack->sentry->prev == stack->sentry)
 		return (0);

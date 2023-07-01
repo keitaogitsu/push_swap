@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_content.c                                     :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:54:38 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/20 23:28:05 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/07/01 14:18:37 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	free_stack(t_stack *stack_a, t_stack *stack_b)
+{
+	free_content(stack_a);
+	free_content(stack_b);
+}
 
 void	free_content(t_stack *stack)
 {

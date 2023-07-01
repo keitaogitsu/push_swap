@@ -2,7 +2,7 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 NAME	= push_swap
 RM		= rm -f
-SRCS	= push_swap.c list_util.c free_content.c swap.c rotate.c reverse_rotate.c push.c coordinate_compression.c \
+SRCS	= push_swap.c list_util.c free.c swap.c rotate.c reverse_rotate.c push.c coordinate_compression.c \
 		sort_small_stack.c sort_small_stack_util.c sort_big_stack.c check_arg.c check_duplicate.c is_sorted.c
 OBJS	= $(SRCS:.c=.o)
 LIBNAME	= push_swap.h

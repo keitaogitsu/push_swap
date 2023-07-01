@@ -6,67 +6,11 @@
 /*   By: kogitsu <kogitsu@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 22:21:34 by kogitsu           #+#    #+#             */
-/*   Updated: 2023/06/25 11:33:18 by kogitsu          ###   ########.fr       */
+/*   Updated: 2023/07/01 15:02:06 by kogitsu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// void	print_stack(t_stack *stack_a, t_stack *stack_b)
-// {
-// 	int		count_a;
-// 	int		count_b;
-// 	t_node	*current_a;
-// 	t_node	*current_b;
-
-// 	count_a = stack_size(stack_a);
-// 	count_b = stack_size(stack_b);
-// 	current_a = stack_a->sentry->prev;
-// 	current_b = stack_b->sentry->prev;
-// 	if (count_a >= count_b)
-// 	{
-// 		while (count_a)
-// 		{
-// 			if (count_a > count_b)
-// 			{
-// 				ft_printf("%d[%d] |   \n", current_a->value, current_a->index);
-// 				current_a = current_a->prev;
-// 				count_a--;
-// 			}
-// 			else
-// 			{
-// 				ft_printf("%d[%d] | %d[%d]\n", current_a->value, 
-// 				current_a->index,current_b->value,current_b->index);
-// 				current_a = current_a->prev;
-// 				current_b = current_b->prev;
-// 				count_a--;
-// 			}
-// 		}
-// 		ft_printf("----------\n a   | b\n");
-// 	}
-// 	else
-// 	{
-// 		while (count_b)
-// 		{
-// 			if (count_b > count_a)
-// 			{
-// 				ft_printf("     | %d[%d]\n", current_b->value,current_b->index);
-// 				current_b = current_b->prev;
-// 				count_b--;
-// 			}
-// 			else
-// 			{
-// 				ft_printf("%d[%d] | %d[%d]\n", current_a->value, 
-// 				current_a->index,current_b->value,current_b->index);
-// 				current_a = current_a->prev;
-// 				current_b = current_b->prev;
-// 				count_b--;
-// 			}
-// 		}
-// 		ft_printf("----------\n a   | b\n");
-// 	}
-// 	ft_printf("\n");
-// }
 
 // #include <libc.h>
 
@@ -75,11 +19,11 @@
 //     system("leaks -q push_swap");
 // }
 
-void	free_stack(t_stack *stack_a, t_stack *stack_b)
-{
-	free_content(stack_a);
-	free_content(stack_b);
-}
+// char	*my_malloc(int size)
+// {
+// 	size++;
+// 	return (NULL);
+// }
 
 void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 {
@@ -93,9 +37,9 @@ int	check_add(char *arg, t_stack *stack_a, t_stack *stack_b)
 {
 	if (check_arg(arg))
 	{
-		ft_printf("Error\n");
+		ft_putstr_fd("Error\n", 2);
 		free_stack(stack_a, stack_b);
-		return (1);
+		exit(1);
 	}
 	else
 	{
@@ -109,27 +53,27 @@ int	arg_check_add(int argc, char **argv, t_stack *stack_a, t_stack *stack_b)
 {
 	char	**container;
 	int		i;
+	int		j;
 
 	i = 0;
-	container = NULL;
-	if (argc == 2)
+	while (++i < argc)
 	{
-		container = ft_split(argv[1], ' ');
-		while (container[i] != NULL)
+		container = ft_split(argv[i], ' ');
+		if (container == NULL || container[0] == NULL)
 		{
-			if (check_add(container[i++], stack_a, stack_b))
+			ft_putstr_fd("Error\n", 2);
+			exit(1);
+		}
+		j = 0;
+		while (container[j] != NULL)
+		{
+			if (check_add(container[j++], stack_a, stack_b))
 			{
 				free_container_content(container);
 				return (1);
 			}
 		}
 		free_container_content(container);
-	}
-	else
-	{
-		while (++i < argc)
-			if (check_add(argv[i], stack_a, stack_b))
-				return (1);
 	}
 	return (0);
 }
@@ -140,16 +84,16 @@ int	main(int argc, char *argv[])
 	t_stack	stack_b;
 
 	if (argc < 2)
-		return (0);
+		return (1);
 	create_stack(&stack_a);
 	create_stack(&stack_b);
 	if (arg_check_add(argc, argv, &stack_a, &stack_b))
-		return (0);
+		return (1);
 	if (check_duplicate(&stack_a))
 	{
-		ft_printf("Error\n");
+		ft_putstr_fd("Error\n", 2);
 		free_stack(&stack_a, &stack_b);
-		return (0);
+		return (1);
 	}
 	c_compression(&stack_a);
 	if (!is_sorted(&stack_a))
